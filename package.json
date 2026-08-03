@@ -1,0 +1,21 @@
+{
+  "name": "arquitecture-training",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Architecture training monorepo — Next.js frontend + NestJS backend",
+  "packageManager": "pnpm@10.14.0",
+  "scripts": {
+    "dev": "pnpm -r --parallel --filter @arquitecture-training/frontend --filter @arquitecture-training/backend run dev",
+    "dev:frontend": "pnpm --filter @arquitecture-training/frontend dev",
+    "dev:backend": "pnpm --filter @arquitecture-training/backend start:dev",
+    "build": "pnpm -r run build",
+    "build:frontend": "pnpm --filter @arquitecture-training/frontend build",
+    "build:backend": "pnpm --filter @arquitecture-training/backend build",
+    "lint": "pnpm -r run lint",
+    "start:frontend": "pnpm --filter @arquitecture-training/frontend start",
+    "start:backend": "pnpm --filter @arquitecture-training/backend start:prod"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
