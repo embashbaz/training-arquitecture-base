@@ -2,6 +2,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../src/generated/prisma/client"
 }
 
 datasource db {
@@ -16,11 +17,11 @@ enum Role {
 }
 
 model User {
-  id           String  @id @default(uuid())
-  email        String  @unique
+  id           String   @id @default(uuid())
+  email        String   @unique
   passwordHash String
-  role         Role    @default(USER)
-  groups       Group[] 
+  role         Role     @default(USER)
+  groups       Group[]
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
@@ -28,7 +29,7 @@ model User {
 model Group {
   id        String   @id @default(uuid())
   name      String   @unique
-  users     User[]   
+  users     User[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

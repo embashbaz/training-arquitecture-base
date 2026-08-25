@@ -5,18 +5,19 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
+import { JwtStrategy } from './jwt.strategy'; // <-- Import this
 
 @Module({
   imports: [
     UsersModule,
     PassportModule,
     JwtModule.register({
-      global: true, // Makes the JWT service available everywhere
+      global: true,
       secret: process.env.JWT_SECRET || 'super-secret-key-for-training',
-      signOptions: { expiresIn: '1h' }, // Tokens expire in 1 hour
+      signOptions: { expiresIn: '1h' },
     }),
   ],
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy], // <-- Add JwtStrategy here
   controllers: [AuthController],
 })
 export class AuthModule {}
