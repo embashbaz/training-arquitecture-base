@@ -1,4 +1,4 @@
-// apps/backend/src/auth/auth.controller.ts
+
 import { Controller, Post, Body, Get, UseGuards, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';

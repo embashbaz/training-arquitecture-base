@@ -1,4 +1,4 @@
-// apps/backend/src/groups/groups.controller.ts
+
 import { Controller, Get, Post, Delete, Body, Param, Query, UseGuards } from '@nestjs/common';
 import { GroupsService } from './groups.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';

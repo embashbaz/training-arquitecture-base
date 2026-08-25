@@ -1,4 +1,4 @@
-// apps/backend/src/users/users.controller.ts
+
 import { Controller, Get, Post, Put, Delete, Body, Param, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -6,7 +6,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { Role } from '@prisma/client';
 
-@UseGuards(JwtAuthGuard, RolesGuard) // Protect ALL routes in this controller
+@UseGuards(JwtAuthGuard, RolesGuard) 
 @Roles(Role.ADMIN) // Require ADMIN role for ALL routes in this controller
 @Controller('users')
 export class UsersController {
