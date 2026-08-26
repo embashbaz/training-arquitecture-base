@@ -6,7 +6,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // url line removed!
 }
 
 enum Role {
@@ -15,20 +14,59 @@ enum Role {
   USER
 }
 
+enum NotificationStatus {
+  QUEUED
+  SENT
+  FAILED
+  READ
+}
+
 model User {
   id           String  @id @default(uuid())
   email        String  @unique
   passwordHash String
   role         Role    @default(USER)
+  
   groups       Group[] 
+  
+  // New relations for notifications
+  receivedNotifications Notification[] @relation("ReceivedNotifications")
+  createdNotifications  Notification[] @relation("CreatedNotifications")
+  
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
 
 model Group {
-  id        String   @id @default(uuid())
-  name      String   @unique
-  users     User[]   
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String   @id @default(uuid())
+  name          String   @unique
+  users         User[]   
+  
+  // New relation for notifications
+  notifications Notification[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Notification {
+  id              String             @id @default(uuid())
+  title           String
+  body            String
+  status          NotificationStatus @default(QUEUED)
+  
+  // Optional linkage if sent to a group
+  groupId         String?
+  group           Group?             @relation(fields: [groupId], references: [id])
+  
+  // The person receiving it
+  recipientUserId String
+  recipient       User               @relation("ReceivedNotifications", fields: [recipientUserId], references: [id])
+  
+  // The Admin/Manager who created it
+  createdBy       String
+  creator         User               @relation("CreatedNotifications", fields: [createdBy], references: [id])
+  
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
 }
