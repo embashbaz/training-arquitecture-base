@@ -1,4 +1,4 @@
-// apps/backend/src/notifications/notifications.service.ts
+
 import { Injectable, ForbiddenException, HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Role, NotificationStatus, Prisma } from '@prisma/client';
